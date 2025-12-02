@@ -24,22 +24,38 @@ app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
-// Connect to MongoDB
+// Connect to MongoDB function (cleaner, without deprecated options)
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // Mongoose 6+ automatically handles these options (useNewUrlParser, useUnifiedTopology)
+    await mongoose.connect(process.env.MONGO_URL);
 
     console.log("MongoDB Connected Successfully to fypdb");
-    app.listen(PORT, "0.0.0.0", () =>
-      console.log(`Server running on port ${PORT}`.green.bold)
-    );
+    return true; // Return a success indicator
   } catch (err) {
     console.log("❌ MongoDB Connection Error:", err);
+    // Do NOT call process.exit(1) here yet; let the caller decide.
+    return false;
+  }
+};
+
+// Start Server function (only runs after successful DB connection)
+const startServer = () => {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`.green.bold);
+  });
+};
+
+// Main execution logic
+const init = async () => {
+  const isConnected = await connectDB();
+
+  if (isConnected) {
+    startServer();
+  } else {
+    // Exit if DB connection fails
     process.exit(1);
   }
 };
 
-connectDB();
+init();

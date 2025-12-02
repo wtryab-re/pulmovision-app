@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+//jobTitle: { type: String },
+//workplace: { type: String },
+//workID: { type: String },
 const User = mongoose.model("User", userSchema);
 
 export default User;

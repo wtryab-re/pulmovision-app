@@ -3,7 +3,9 @@
 //api url for local testing
 // export const API_BASE_URL = "http://localhost:5000";
 // Change this to your production URL when deploying
-export const API_BASE_URL = "https://localhost:5000"; //"https://slaggiest-pseudospiritually-gwyneth.ngrok-free.dev";
+//"https://slaggiest-pseudospiritually-gwyneth.ngrok-free.dev";
+export const API_BASE_URL = "http://192.168.100.135:5000";
+//"https://slaggiest-pseudospiritually-gwyneth.ngrok-free.dev"
 
 // API endpoints
 export const API_ENDPOINTS = {
