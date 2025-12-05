@@ -358,6 +358,53 @@ const WorkerSignupScreen = () => {
               <ErrorText message={errors.email} />
             </View>
 
+            {/*workplace, jobtitle, workID fields go here  */}
+            <View>
+              <View style={styles.fieldview}>
+                <Ionicons
+                  name="business-outline"
+                  size={width * 0.06}
+                  color="gray"
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter your Workplace"
+                  placeholderTextColor="gray"
+                />
+              </View>
+            </View>
+
+            <View>
+              <View style={styles.fieldview}>
+                <Ionicons
+                  name="briefcase-outline"
+                  size={width * 0.06}
+                  color="gray"
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter your Job Title"
+                  placeholderTextColor="gray"
+                />
+              </View>
+            </View>
+            <View>
+              <View style={styles.fieldview}>
+                <Ionicons
+                  name="id-card-outline"
+                  size={width * 0.06}
+                  color="gray"
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter your Work ID"
+                  placeholderTextColor="gray"
+                />
+              </View>
+            </View>
             {/* Age Input Field */}
             <View>
               <View style={styles.fieldview}>
@@ -607,9 +654,9 @@ const WorkerSignupScreen = () => {
             </View>
             <Text style={styles.successTitle}>Registration Successful!</Text>
             <Text style={styles.successMessage}>
-              Your account has been created successfully! Please wait for
-              administrator approval before you can log in. You will be notified
-              once your account is approved.
+              Your account has been created successfully!{"\n"}
+              Please wait for administrator approval before you can log in.
+              {"\n"} You will be notified once your account is approved.
             </Text>
             <TouchableOpacity
               style={styles.successButton}

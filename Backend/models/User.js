@@ -12,15 +12,15 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, enum: ["patient", "worker"], required: true },
     isApproved: { type: Boolean, default: false },
+    jobTitle: { type: String },
+    workplace: { type: String },
+    workID: { type: String },
   },
   {
     timestamps: true, // Adds createdAt and updatedAt
   }
 );
 
-//jobTitle: { type: String },
-//workplace: { type: String },
-//workID: { type: String },
 const User = mongoose.model("User", userSchema);
 
 export default User;

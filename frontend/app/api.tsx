@@ -22,6 +22,8 @@ export const API_ENDPOINTS = {
 
     UPLOAD_IMAGE: `${API_BASE_URL}/api/user/upload-image`, // image upload
     CREATE_CASE: `${API_BASE_URL}/api/cases`, // create new case
+
+    FETCH_CASES: `${API_BASE_URL}/api/user_cases`, // fetch all cases for user
   },
 
   //REMOVEEE TO WEBSITE Admin endpoints (add when needed)

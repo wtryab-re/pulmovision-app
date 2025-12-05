@@ -75,14 +75,13 @@ const PatientLoginScreen = () => {
 
         // Verify user data exists
         if (!user || !user.role) {
-          Alert.alert("Login Error", "Please try again or contact support.");
+          Alert.alert("Login Error", "Invalid credentials.");
           return;
         }
 
         // Role verification
         if (user.role !== "patient") {
           Alert.alert(
-            "Wrong Account Type",
             "This login is for patients only. Please use the healthcare worker login if you are a medical professional."
           );
           return;
@@ -91,14 +90,17 @@ const PatientLoginScreen = () => {
         try {
           // Store authentication data securely
           await SecureStore.setItemAsync("authToken", token);
-          await SecureStore.setItemAsync("userRole", user.role);
-          await SecureStore.setItemAsync("userName", user.name);
+          await SecureStore.setItemAsync("user", JSON.stringify(user));
+
+          console.log(await SecureStore.getItemAsync("user"));
+
           console.log("Token stored securely.");
         } catch (error) {
           console.error("Error storing token:", error);
         }
 
-        console.log("✅ Login successful, navigating to dashboard...");
+        console.log("Login successful, navigating to dashboard...");
+
         router.replace("/startscreens/patientDashboard");
       } else {
         // Handle specific error cases with user-friendly messages

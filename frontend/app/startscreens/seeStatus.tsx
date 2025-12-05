@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("window");
@@ -37,10 +38,6 @@ const StatusScreen = () => {
             <Text style={styles.patientName}>Ali Hassan</Text>
             <Text style={styles.patientId}>P–5632–8</Text>
           </View>
-          <Image
-            source={require("../../assets/placeholders/1.png")}
-            style={styles.profileImage}
-          />
         </View>
 
         {/* X-ray and Classification Result */}
@@ -73,36 +70,16 @@ const StatusScreen = () => {
           <Text style={styles.backButtonText}>Back to Home</Text>
         </TouchableOpacity>
 
-        {/* Footer Nav */}
-        <View style={styles.footerNav}>
-          <TouchableOpacity
-            onPress={() => router.push("/startscreens/patientDashboard" as any)}
-          >
-            <Ionicons name="home-outline" size={width * 0.07} color="#999" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => router.push("/screens/notifications" as any)}
-          >
-            <Ionicons
-              name="notifications-outline"
-              size={width * 0.07}
-              color="#999"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => router.push("/screens/profile" as any)}
-          >
-            <Ionicons name="person-outline" size={width * 0.07} color="#999" />
-          </TouchableOpacity>
+        <View style={styles.navbar}>
+          <Icon name="home" size={26} color="#2974f0" />
+          <Icon name="folder-outline" size={26} color="#ccc" />
+          <Icon name="person-outline" size={26} color="#ccc" />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-// ✅ Typed props
 type DetailRowProps = {
   label: string;
   value: string;
@@ -182,14 +159,15 @@ const styles = StyleSheet.create({
     fontSize: width * 0.045,
     fontWeight: "bold",
   },
-  footerNav: {
+  navbar: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
+    verticalAlign: "bottom",
     paddingVertical: height * 0.015,
     borderTopWidth: 1,
     borderTopColor: "#eee",
     backgroundColor: "#fff",
-    marginTop: height * 0.03,
+    marginTop: height * 0.1,
   },
 });

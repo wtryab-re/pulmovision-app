@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -16,7 +16,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width, height } = Dimensions.get("window");
 
 const PatientDashboard = () => {
-  // ✅ Logout handler
   const handleLogout = async () => {
     try {
       Alert.alert("Logout", "Are you sure you want to logout?", [
@@ -32,7 +31,6 @@ const PatientDashboard = () => {
 
             console.log("User logged out.");
 
-            // ✅ Navigate to SignInLogin screen
             router.replace("/startscreens/signinlogin");
           },
         },
@@ -42,18 +40,29 @@ const PatientDashboard = () => {
     }
   };
 
+  const [currentUserInfo, setcurrentUserInfo] = useState("");
+  const currentPatientInformation = async () => {
+    //fetch patient information from secure store
+    const userInfo = await SecureStore.getItemAsync("user");
+    const user = userInfo ? JSON.parse(userInfo) : null;
+    if (userInfo) {
+      setcurrentUserInfo(user);
+    }
+
+    //fetch cases related to patient from api
+  };
+
+  useEffect(() => {
+    currentPatientInformation();
+  }, []);
   return (
     <SafeAreaProvider style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.name}>Ali Hassan</Text>
-          <Text style={styles.id}>P-5632-8</Text>
+          <Text style={styles.name}>{currentUserInfo.name}</Text>
+          <Text style={styles.id}>{currentUserInfo.id}</Text>
         </View>
-        <Image
-          source={require("../../assets/placeholders/1.png")}
-          style={styles.avatar}
-        />
       </View>
 
       {/* Case Status Card */}
@@ -85,7 +94,7 @@ const PatientDashboard = () => {
         </View>
       </TouchableOpacity>
 
-      {/* ✅ Logout */}
+      {}
       <TouchableOpacity style={styles.logout} onPress={handleLogout}>
         <Icon name="alert-circle-outline" size={20} color="red" />
         <Text style={styles.logoutText}>Logout</Text>
@@ -95,7 +104,7 @@ const PatientDashboard = () => {
       {/* Bottom Navigation */}
       <View style={styles.navbar}>
         <Icon name="home" size={26} color="#2974f0" />
-        <Icon name="calendar-outline" size={26} color="#ccc" />
+        <Icon name="folder-outline" size={26} color="#ccc" />
         <Icon name="person-outline" size={26} color="#ccc" />
       </View>
     </SafeAreaProvider>
@@ -156,18 +165,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logoutText: { color: "red", fontWeight: "500", marginLeft: 10, flex: 1 },
+
   navbar: {
     flexDirection: "row",
-    marginBottom: 30,
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    paddingVertical: 15,
+    verticalAlign: "bottom",
+    paddingVertical: height * 0.015,
     borderTopWidth: 1,
-    borderColor: "#eee",
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
+    borderTopColor: "#eee",
     backgroundColor: "#fff",
+    marginTop: height * 0.48,
   },
 });
 
